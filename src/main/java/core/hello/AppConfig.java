@@ -7,6 +7,8 @@ import core.hello.member.MemberServiceImpl;
 import core.hello.member.MemoryMemberRepository;
 import core.hello.order.OrderService;
 import core.hello.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * 구현체들 간의 연결 만을 다루는 구현체.
@@ -23,16 +25,20 @@ import core.hello.order.OrderServiceImpl;
  *현재 AppConfig DI 컨테이너 이다.
  **/
 
+@Configuration //설정 정보를 담는 컨테이너임을 알리는 annotation
 public class AppConfig {
 
-    private MemberRepository memberRepository() {
+    @Bean //스프링 컨테이너에 등록; 등록 될 때 "메소드 이름"으로 등록된다.
+    public MemberRepository memberRepository() {
         return new MemoryMemberRepository(); //각각의 메소드에서 만들어 줘도 되지만 최대한 가시적으로 코딩하는게 좋다.
     }
 
+    @Bean
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository()); //저장소 연결해주기
     }
 
+    @Bean
     public OrderService orderService(){
         return new OrderServiceImpl(memberRepository(), discountPolicy()); //할인 적용 정책을 여기서 설정해주기
     }
@@ -40,7 +46,8 @@ public class AppConfig {
     /**
      * 이제 할인 정책을 적용할 때 이 discountPolicy() 메서드만 변경해주면된다.
      **/
-    private FixDiscountPolicy discountPolicy() {
+    @Bean
+    public FixDiscountPolicy discountPolicy() {
         return new FixDiscountPolicy();
         //return new RateDiscountPolicy();
     }
