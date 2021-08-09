@@ -19,6 +19,10 @@ import core.hello.order.OrderServiceImpl;
  */
 
 //리팩터링)) 각 메소드가 최대한 자신의 역할이 가시적으로 드러나게, 단일 책임의 원칙을 최대한 따른다.
+/**
+ *현재 AppConfig DI 컨테이너 이다.
+ **/
+
 public class AppConfig {
 
     private MemberRepository memberRepository() {
