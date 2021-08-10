@@ -53,7 +53,7 @@ public class AppConfig {
     }
 
     /**
-     * 이제 할인 정책을 적용할 때 이 discountPolicy() 메서드만 변경해주면된다.
+     * 이제 할인 정책을 적용할 때 이 discountPolicy() 메서드만 변경해주면 된다.
      **/
     @Bean
     public FixDiscountPolicy discountPolicy() {
