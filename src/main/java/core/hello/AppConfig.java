@@ -22,9 +22,18 @@ import org.springframework.context.annotation.Configuration;
 
 //리팩터링)) 각 메소드가 최대한 자신의 역할이 가시적으로 드러나게, 단일 책임의 원칙을 최대한 따른다.
 /**
- *현재 AppConfig DI 컨테이너 이다.
+ *AppConfig = DI 컨테이너 이다.
  **/
 
+/***
+ * 스프링 @Configuration의 기능 중 가장 중요한 기능은 "싱글톤을 유지"하도록 도와주는 것이다.
+ * 즉, @Configuration를 달지 않아도 스프링 빈 등록 과정은 실행되나, 가장 첫번째 문제점은 싱글톤 유지가 안된다,,,,
+ *
+ * (예컨데, AppConfig의 자바 코드를 보면 분명히 각각 2번 new MemoryMemberRepository 호출해서 다른 인스턴스가 생성되어야 하는데
+ * @Bean이 붙은 메서드마다 이미 스프링 빈이 존재하면 존재하는 빈을 반환하고, 스프링 빈이 없으면
+ * 생성해서 스프링 빈으로 등록하고 반환하는 코드가 동적으로 만들어진다. 덕분에 싱글톤이 보장되는 것이다.)
+ * => 자세히는 강의 자료 81p~를 참고.
+ ***/
 @Configuration //설정 정보를 담는 컨테이너임을 알리는 annotation
 public class AppConfig {
 

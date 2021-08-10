@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--/************************************************스프링 xml 설정*****************************************************/-->
+
+
+    <!--/*************************************스프링 bean xml로 등록 하는 과정*********************************************/-->
+
+    <bean id="memberService" class="core.hello.member.MemberServiceImpl">
+        <constructor-arg name="memberRepository" ref="memberRepository" />
+    </bean>
+
+    <bean id="memberRepository" class="core.hello.member.MemoryMemberRepository" />
+
+    <bean id="orderService" class="core.hello.order.OrderServiceImpl">
+        <constructor-arg name="memberRepository" ref="memberRepository" />
+        <constructor-arg name="discountPolicy" ref="discountPolicy" />
+    </bean>
+
+    <bean id="discountPolicy" class="core.hello.discount.RateDiscountPolicy" />
+</beans>
